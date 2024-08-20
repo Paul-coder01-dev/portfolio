@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paul Thuva - Projects</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #282c34;
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            width: 100%;
+            max-width: 1200px;
+            background-color: #1b1e23;
+            position: relative;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #61dafb;
+        }
+
+        .navbar {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: #61dafb;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s, border-bottom 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #fff;
+            border-bottom: 2px solid #61dafb;
+        }
+
+        .theme-toggle-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-toggle-switch {
+            width: 60px;
+            height: 30px;
+            background-color: #61dafb;
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .theme-toggle-switch.dark-mode {
+            background-color: #666;
+        }
+
+        .theme-toggle-circle {
+            width: 24px;
+            height: 24px;
+            background-color: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            transition: transform 0.3s;
+        }
+
+        .theme-toggle-switch.dark-mode .theme-toggle-circle {
+            transform: translateX(30px);
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #61dafb;
+            margin: 20px 0;
+        }
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            margin-top: 30px; /* Adjust for fixed header height */
+            width: 90%;
+            z-index: 1;
+        }
+
+        .project-card {
+            background-color: #1b1e23;
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .project-card h3 {
+            color: #61dafb;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .project-card p {
+            color: #ddd;
+            font-size: 16px;
+        }
+
+        .project-card a {
+            color: #61dafb;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;
+            transition: color 0.3s;
+        }
+
+        .project-card a:hover {
+            color: #fff;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: auto;
+            padding: 20px;
+            z-index: 1;
+        }
+
+        .social-icons a {
+            color: #61dafb;
+            font-size: 35px;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #fff;
+            transform: scale(1.2);
+        }
+
+        /* Dark Theme Styles */
+        .dark-theme {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        .dark-theme .project-card {
+            background-color: #222;
+        }
+
+        .dark-theme .project-card h3 {
+            color: #61dafb;
+        }
+
+        .dark-theme .project-card p {
+            color: #bbb;
+        }
+
+        .dark-theme .project-card a {
+            color: #61dafb;
+        }
+
+        /* Custom Cursor Styles */
+        .cursor {
+            position: absolute;
+            pointer-events: none;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            transition: width 0.2s, height 0.2s;
+        }
+
+        .cursor-outer {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #61dafb;
+        }
+
+        .cursor-inner {
+            width: 10px;
+            height: 10px;
+            background: #61dafb;
+            border: none;
+        }
+
+        .cursor:hover .cursor-inner {
+            background: #fff;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .projects-container {
+                padding: 10px;
+                margin-top: 20px;
+            }
+
+            .project-card {
+                padding: 15px;
+            }
+
+            .project-card h3 {
+                font-size: 20px;
+            }
+
+            .project-card p {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .navbar a {
+                font-size: 16px;
+            }
+
+            .theme-toggle-container {
+                margin-top: 10px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                text-align: center;
+            }
+
+            .projects-container {
+                width: 100%;
+                padding: 5px;
+            }
+
+            .project-card {
+                padding: 10px;
+            }
+
+            .project-card h3 {
+                font-size: 18px;
+            }
+
+            .project-card p {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" id="logo">PT</div>
+
+        <div class="navbar">
+            <a href="home.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="education.html">Education</a>
+            <a href="techstack.html">Techstack</a>
+            <div class="theme-toggle-container">
+                <div class="theme-toggle-switch" id="theme-toggle">
+                    <div class="theme-toggle-circle"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <h1>Paul's Projects</h1>
+    <div class="projects-container">
+        <div class="project-card">
+            <img src="project1-image.jpg" alt="Project 1">
+            <h3>Project 1 Title</h3>
+            <p>Short description of Project 1. Explain what it does, technologies used, and any key features.</p>
+            <a href="project1.html" target="_blank">View Project</a>
+        </div>
+
+        <div class="project-card">
+            <img src="project2-image.jpg" alt="Project 2">
+            <h3>Project 2 Title</h3>
+            <p>Short description of Project 2. Explain what it does, technologies used, and any key features.</p>
+            <a href="project2.html" target="_blank">View Project</a>
+        </div>
+
+        <div class="project-card">
+            <img src="project3-image.jpg" alt="Project 3">
+            <h3>Project 3 Title</h3>
+            <p>Short description of Project 3. Explain what it does, technologies used, and any key features.</p>
+            <a href="project3.html" target="_blank">View Project</a>
+        </div>
+
+        <!-- Add more projects as needed -->
+    </div>
+
+    <div class="social-icons">
+        <a href="https://wa.me/+254791984490" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://instagram.com/_paulo.__" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://linkedin.com/in/paul-thuva-software-engineer-869876309" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/Paul-coder01-dev" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://twitter.com/@thuva_paul" target="_blank" title="X"><i class="fab fa-twitter"></i></a>
+        <a href="https://t.me/@Dawnwotherspoon" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor cursor-outer"></div>
+    <div class="cursor cursor-inner"></div>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggleSwitch = document.getElementById('theme-toggle');
+        let darkTheme = false;
+
+        themeToggleSwitch.addEventListener('click', () => {
+            darkTheme = !darkTheme;
+            document.body.classList.toggle('dark-theme', darkTheme);
+            themeToggleSwitch.classList.toggle('dark-mode', darkTheme);
+        });
+
+        // Custom Cursor
+        document.addEventListener('mousemove', (event) => {
+            const outerCursor = document.querySelector('.cursor-outer');
+            const innerCursor = document.querySelector('.cursor-inner');
+            outerCursor.style.left = `${event.clientX}px`;
+            outerCursor.style.top = `${event.clientY}px`;
+            innerCursor.style.left = `${event.clientX}px`;
+            innerCursor.style.top = `${event.clientY}px`;
+        });
+
+        // Redirect Logo Click
+        document.getElementById('logo').addEventListener('click', function() {
+            window.location.href = 'index.html'; // Redirects to index.html
+        });
+    </script>
+</body>
+</html>
